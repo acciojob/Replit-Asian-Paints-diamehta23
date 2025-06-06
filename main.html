@@ -1,16 +1,100 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Asian Paints Grid</title>
+<style>
+  #grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(3, 80px);
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    font-size: 24px;
+    user-select: none;
+    cursor: default;
+    background-color: transparent;
+  }
+  input, button {
+    margin: 5px;
+    padding: 6px 10px;
+    font-size: 16px;
+  }
+</style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+
+<div id="grid-container">
+  <div id="1" class="grid-item">1</div>
+  <div id="2" class="grid-item">2</div>
+  <div id="3" class="grid-item">3</div>
+  <div id="4" class="grid-item">4</div>
+  <div id="5" class="grid-item">5</div>
+  <div id="6" class="grid-item">6</div>
+  <div id="7" class="grid-item">7</div>
+  <div id="8" class="grid-item">8</div>
+  <div id="9" class="grid-item">9</div>
+</div>
+
+<label for="block_id">Block ID (1-9): </label>
+<input type="number" id="block_id" min="1" max="9" />
+<label for="colour_id">Color: </label>
+<input type="text" id="colour_id" placeholder="e.g. red or #f00" />
+
+<button id="change_button">Change Color</button>
+<button id="Reset">Reset</button>
+
+<script>
+  const changeBtn = document.getElementById("change_button");
+  const resetBtn = document.getElementById("Reset");
+  const blockInput = document.getElementById("block_id");
+  const colourInput = document.getElementById("colour_id");
+  const gridItems = document.querySelectorAll(".grid-item");
+
+  changeBtn.addEventListener("click", () => {
+    // Reset all grid item backgrounds to transparent first
+    gridItems.forEach(item => {
+      item.style.backgroundColor = "transparent";
+    });
+
+    const id = blockInput.value.trim();
+    const color = colourInput.value.trim();
+
+    // Validate id is from 1 to 9
+    if (!id || isNaN(id) || id < 1 || id > 9) {
+      alert("Please enter a valid block ID between 1 and 9.");
+      return;
+    }
+    if (!color) {
+      alert("Please enter a valid color.");
+      return;
+    }
+
+    // Select the grid item by id
+    const target = document.getElementById(id);
+    if (target) {
+      target.style.backgroundColor = color;
+    } else {
+      alert("Block ID not found.");
+    }
+  });
+
+  resetBtn.addEventListener("click", () => {
+    gridItems.forEach(item => {
+      item.style.backgroundColor = "transparent";
+    });
+    // Optionally clear inputs
+    blockInput.value = "";
+    colourInput.value = "";
+  });
 </script>
 
 </body>
-
 </html>
